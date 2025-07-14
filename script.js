@@ -1,4 +1,12 @@
-const tileSize = 40;
+//responsive Tile Size
+let tileSize = 40;
+if(window.innerWidth < 500) {
+  tileSize = 24; // Mobile
+} else if(window.innerWidth < 768) {
+  tileSize = 32; //Tablet
+} else {
+  tileSize = 40; //Desktop
+}
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -52,6 +60,16 @@ function showCanvas() {
 
 window.addEventListener("resize", () => {
   if (canvas.style.display === "block") {
+    if(window.innerWidth < 500)
+    {
+      tileSize = 24;
+    } else if (window.innerWidth < 768)
+    {
+      tileSize = 32;
+    } else{
+      tileSize = 40;
+    }
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     drawMap(ctx);
