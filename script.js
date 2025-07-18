@@ -107,6 +107,21 @@ function showCanvas() {
     18:{sx: 32, sy: 16}, //page
   }
 
+  const solidObjectsId = new Set([1,2,3,4,7,8,9,10,11,15,16,17,18]);
+  function iswalkable(x,y) {
+      if(x < 0 || x >= map[0].length || y < 0 || y >= map.length) return false;
+
+      if(map[y][x] === 1) return false;
+
+      const rawStack = layerObjectMap[y][x];
+      const stack = Array.isArray(rawStack) ? rawStack : [rawStack];
+
+      for( const objId of stack) {
+        if(solidObjectsId.has(objId)) return false;
+      }
+
+      return true;
+  }
   // The LoadHandler called when image is loaded.
   function renderScene() {
     for( let y = 0; y<  map.length; y++){
@@ -212,7 +227,7 @@ function showCanvas() {
   const newX = player.x + dx;
   const newY = player.y + dy;
 
-  if(newX < 0  || newX >= map[0].length || newY < 0 || newY >= map.length) return;
+  if(!iswalkable(newX,newY)) return;
 
   player.moving = true;
   player.targetX = newX;
