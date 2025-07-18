@@ -21,9 +21,9 @@ function showCanvas() {
   const layerObjectMap = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [1,16,0,0,0,0,0,0,0,0,0,0,15,[3,7],[4,8]],
+    [1,[16,17],0,0,0,0,0,0,0,0,0,0,15,[3,7],[4,8]],
     [2,0,0,0,0,0,0,0,0,0,0,0,0,5,6],
-    [0,0,0,0,0,0,9,10,11,0,0,0,0,0,0],
+    [0,0,0,0,0,0,9,[10,18],11,0,0,0,0,0,0],
     [0,0,0,0,0,0,12,13,14,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -102,7 +102,9 @@ function showCanvas() {
     13:{sx: 16, sy: 96}, //big table 5
     14:{sx: 32, sy: 96}, //big table 6
     15:{sx: 48, sy: 16}, // bin
-    16:{sx: 80, sy: 80} //samll bin
+    16:{sx: 80, sy: 80}, //samll bin
+    17:{sx: 16, sy: 16}, // book
+    18:{sx: 32, sy: 16}, //page
   }
 
   // The LoadHandler called when image is loaded.
@@ -128,10 +130,22 @@ function showCanvas() {
           if(objId !== 0 && objectTiles[objId]) {
             const tile = objectTiles[objId];
 
-            const isComputer = (objId === 7 || objId === 8);
-            const scale = isComputer ? 0.75 : 1;
-            const offsetX = isComputer ? 4 : 0; // shift a few px
-            const offsetY = isComputer ? -6 : 0; // raise it a bit
+            let scale = 1;
+            let offsetX = 0;
+            let offsetY = 0;
+
+            if (objId === 7 || objId === 8) { // computer
+              scale = 0.75;
+              offsetX = 5;
+              offsetY = -4;
+            } else if (objId === 17) { // book
+              scale = 0.6;
+              offsetX = 6.5;
+              offsetY = 0;
+            } else if (objId ===18){
+              scale = 0.7;
+              offsetY = 10;
+            }
 
             const drawWidth = tileSize * scale;
             const drawHeight = tileSize * scale;
