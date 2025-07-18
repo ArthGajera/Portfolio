@@ -48,8 +48,13 @@ html, body {
 
 #gameCanvas {
   display: none;
+  width: 960px;
+  height: 512px;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #111;
+
+  image-rendering: pixelated;
 }
