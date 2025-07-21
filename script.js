@@ -47,6 +47,34 @@ function showCanvas() {
       speed: 1
     };
 
+    let dialogVisible = false;
+    let currentDialog = "";
+    let dialogLines = [
+      " "
+    ];
+    let dialogIndex = 0;
+
+    let aboutMeVisible = false;
+    let aboutMeText = `Hi! I'm Arth Gajera, an Aspiring Game Developer\n with a strong Foundation in:\n 1) Unity and Unreal Engine.\n 2) Graphics Programming (OpenGL, RayTracing).\n 3) VR/AR Development.\n\nI Love creating an Immersive worlds,\n combining gameplay with code magic!
+    `;
+
+    let contactBoxVisible = false;
+    let contactText = `Lets Get In Touch!\n      
+    Email: arthgajera0007@gmail.com\n
+    Phone: +1 (720) 253-5869\n
+    LinkedIn: linkedin.com/in/arth-gajera\n
+    GitHub: github.com/ArthGajera\n
+    Location: Denver, CO`;
+
+
+    let projectMenuVisible = false;
+    let selectedProjectIndex = 0;
+    const projectList = [
+      { name: "Ray Tracer", description: " A real-time ray tracer built from scratch in c++ and OpenGL."},
+      { name: "MTD-SDN", description: "A Moving Target Defence System using SOftware define Networking and Ryu controller."},
+      { name: "RL Pathfinding", description: "Unity project using Reinforcment Learning to solve navigation puzzel."}
+    ];
+
     const standingFrames = {
       down: 0,
       up: 16,
@@ -122,6 +150,60 @@ function showCanvas() {
 
       return true;
   }
+  function checkInteraction() {
+    const { x, y, direction } = player;
+    let tx = x, ty = y;
+
+    if(direction === "up") ty -= 1;
+    else if(direction ==="down") ty += 1;
+    else if(direction ==="left") tx -= 1;
+    else if(direction ==="right") tx += 1;
+
+    if(tx < 0 || ty < 0 || tx >= map[0].length || ty >= map.length) return;
+
+    const rawStack = layerObjectMap[ty][tx];
+    const stack = Array.isArray(rawStack) ? rawStack : [rawStack];
+
+    for(const objId of stack) {
+      switch(objId) {
+        case 18: 
+          dialogLines = [
+            "It's a Page with scribbles on it.",
+            "Looks like Someone's contact info.",
+            "let's check it..."
+          ];
+          dialogIndex = 0;
+          currentDialog = dialogLines[0];
+          dialogVisible = true;
+          break;
+
+        case 7: 
+          dialogLines = [
+            "It's a Computer!!",
+            "May be there is Something intresting inside, Let's Open it.",
+            "Power ON!"
+          ];
+          dialogIndex = 0;
+          currentDialog = dialogLines[0];
+          dialogVisible = true;
+          break;
+        case 17:
+          dialogLines = [
+            " An Old Book Lies Here.",
+            "It seems to be a Owner's Book"
+          ];
+          dialogIndex = 0;
+          currentDialog = dialogLines[0];
+          dialogVisible = true;
+          break;
+        
+          default:
+            break;
+      }
+    }
+  }
+
+
   // The LoadHandler called when image is loaded.
   function renderScene() {
     for( let y = 0; y<  map.length; y++){
@@ -211,16 +293,233 @@ function showCanvas() {
       tileSize,tileSize
     );
    }
+
+   if(dialogVisible) {
+    const boxWidth = canvas.width - 40;
+    const boxHeight = 80;
+    const boxX = 20;
+    const boxY = canvas.height - boxHeight - 20;
+
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(boxX,boxY,boxWidth,boxHeight);
+
+    ctx.strokeStyle = "#306850";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(boxX,boxY,boxWidth,boxHeight);
+
+
+    ctx.fillStyle = "#306850";
+    ctx.font = "8px 'Press Start 2P', monospace";
+    ctx.textBaseline = "top";
+    const words = currentDialog.split(" ");
+    let line = "";
+    let y = boxY + 10;
+
+    for(let i =0 ;i < words.length; i++) {
+      const testLine = line + words[i] + " ";
+      const testWidth = ctx.measureText(testLine).width;
+      if(testWidth > boxWidth -20 ) {
+        ctx.fillText(line, boxX + 10, y);
+        line = words[i] + " ";
+        y += 20;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line, boxX + 10, y);
+   }
+   
+   if(aboutMeVisible) {
+    const boxX = 40;
+    const boxY = 40;
+    const boxWidth = canvas.width - 80;
+    const boxHeight = canvas.height - 80;
+
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(boxX,boxY,boxWidth,boxHeight);
+
+    ctx.strokeStyle = "#306850";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(boxX,boxY,boxWidth,boxHeight);
+
+    ctx.fillStyle = "#306850";
+    ctx.font = "8px 'Press Start 2P', monospace";
+    ctx.textBaseline = "top";
+
+    const words = aboutMeText.split("\n");
+    let line = "";
+    let y = boxY +16;
+
+    for(let i =0; i< words.length; i++) {
+      const testLine = line + words[i] + " ";
+      const testWidth = ctx.measureText(testLine).width;
+      if(testWidth > boxWidth - 20) {
+        ctx.fillText(line, boxX + 10, y);
+        line = words[i] + " ";
+        y += 12;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line,boxX +10,y);
+   }
+
+    if (contactBoxVisible) {
+      const boxX = 40;
+      const boxY = 40;
+      const boxWidth = canvas.width - 80;
+      const boxHeight = canvas.height - 80;
+
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
+
+      ctx.strokeStyle = "#306850";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(boxX, boxY, boxWidth, boxHeight);
+
+      ctx.fillStyle = "#306850";
+      ctx.font = "8px 'Press Start 2P', monospace";
+      ctx.textBaseline = "top";
+
+      const words = contactText.split("\n");
+      let line = "";
+      let y = boxY + 16;
+
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + " ";
+        const testWidth = ctx.measureText(testLine).width;
+        if (testWidth > boxWidth - 20) {
+          ctx.fillText(line, boxX + 10, y);
+          line = words[i] + " ";
+          y += 12;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, boxX + 10, y);
+    }
+
+    if(projectMenuVisible) {
+      const menuX = canvas.width - 160 ;
+      const menuY = 40;
+      const menuWidth = 120;
+      const menuHeight = 100;
+
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(menuX,menuY,menuWidth,menuHeight);
+      ctx.strokeStyle = "#306850";
+      ctx.strokeRect(menuX,menuY,menuWidth,menuHeight);
+
+      ctx.fillStyle = "#306850";
+      ctx.font = "8px 'Press Start 2P', monospace";
+      ctx.textBaseline = "top";
+
+      for(let i = 0; i< projectList.length;i++) {
+        const y = menuY + 10 +i * 14;
+        const name = projectList[i].name;
+        if( i === selectedProjectIndex) {
+          ctx.fillRect(menuX + 5,y-2,menuWidth-10,12);
+          ctx.fillStyle = "#fff";
+          ctx.fillText(name,menuX+10,y);
+          ctx.fillStyle = "#306850";
+        } else {
+          ctx.fillText(name,menuX + 10, y);
+        }
+      }
+
+      const descBoxX = 20;
+      const descBoxY = 40;
+      const descBoxWidth = canvas.width - 200;
+      const descBoxHeight = 100;
+
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(descBoxX, descBoxY, descBoxWidth, descBoxHeight);
+      ctx.strokeStyle = "#306850";
+      ctx.strokeRect(descBoxX, descBoxY, descBoxWidth, descBoxHeight);
+
+      ctx.fillStyle = "#306850";
+      ctx.font = "8px 'Press Start 2P', monospace";
+
+      const description = projectList[selectedProjectIndex].description;
+      const words = description.split(" ");
+      let line = "", y = descBoxY + 10;
+
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + " ";
+        if (ctx.measureText(testLine).width > descBoxWidth - 20) {
+          ctx.fillText(line, descBoxX + 10, y);
+          line = words[i] + " ";
+          y += 14;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, descBoxX + 10, y);
+    }
+
   }
   document.addEventListener("keydown", function (event) {
   if(player.moving) return; //no inputs 
 
   let dx = 0, dy = 0;
+  // handle about me box
+  if(aboutMeVisible) {
+    if(event.key === "e") {
+      aboutMeVisible = false;
+    }
+    return;
+  }
+
+  if (contactBoxVisible) {
+    if (event.key === "e") {
+      contactBoxVisible = false;
+    }
+    return;
+  }
+
+  if(projectMenuVisible) {
+    if(event.key === "w"){
+      selectedProjectIndex = (selectedProjectIndex - 1 + projectList.length) % projectList.length;
+    } else if(event.key === "s") {
+      selectedProjectIndex = (selectedProjectIndex + 1) % projectList.length;
+    } else if(event.key === "e") {
+      projectMenuVisible = false;
+    }
+    return;
+  }
+
+
+  // block for movement restriction during dialog.
+    if(dialogVisible)
+    {
+      if(event.key === "e") {
+        dialogIndex++;
+        if(dialogIndex < dialogLines.length) {
+          currentDialog = dialogLines[dialogIndex];
+        } else {
+          dialogVisible = false;
+          currentDialog = "";
+          if(dialogLines[0].trim().startsWith("An Old Book")) {
+            aboutMeVisible = true;
+          } else if(dialogLines[0].trim().startsWith("It's a Page")) {
+              contactBoxVisible = true;
+          } else if(dialogLines[0].trim().startsWith("It's a Computer")) {
+            projectMenuVisible = true;
+            selectedProjectIndex = 0;
+          }
+        }
+      }
+      return;
+    }
+
+    if(player.moving) return; // Block input during movement
+
   switch(event.key) {
     case "w": dy = -1; player.direction = 'up'; break;
     case "s": dy = 1; player.direction = 'down'; break;
     case "a": dx = -1; player.direction = 'left'; break;
     case "d": dx = 1; player.direction = 'right'; break;
+    case "e": checkInteraction(); break;
     default: return;
   }
 
