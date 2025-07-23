@@ -8,6 +8,7 @@ html, body {
   font-family: 'Press Start 2P', cursive;
 }
 
+/* Start screen */
 #start-screen {
   display: flex;
   flex-direction: column;
@@ -46,15 +47,55 @@ html, body {
   transition: transform 0.1s ease;
 }
 
+/* Main game + instructions wrapper */
+#main-content {
+  display: none; /* Shown after start */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 32px;
+}
+
+/* Canvas styling */
 #gameCanvas {
-  display: none;
+  display: block;
   width: 960px;
   height: 512px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background: #111;
-
   image-rendering: pixelated;
+}
+
+/* Instruction panel beside canvas */
+#instruction-wrapper {
+  font-family: 'Press Start 2P', cursive;
+  color: #40c322;
+}
+
+#arrow-keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrow-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.enter-row {
+  margin-top: 12px;
+}
+
+.key {
+  border: 2px solid #40c322;
+  padding: 6px 10px;
+  background: #000;
+  color: #40c322;
+  font-size: 10px;
+  text-align: center;
+  min-width: 32px;
+  box-shadow: 2px 2px 0 #222;
 }

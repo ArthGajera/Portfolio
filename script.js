@@ -5,6 +5,7 @@ function showCanvas() {
   // Show canvas, hide start screen
   document.getElementById("start-screen").style.display = "none";
   canvas.style.display = "block";
+  document.getElementById("main-content").style.display = "flex";
 
   const ctx = canvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;

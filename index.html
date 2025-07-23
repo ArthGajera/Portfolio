@@ -2,18 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>8-Bit Portfolio RPG</title>
+  <title>Arth Gajera</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Start Screen -->
   <div id="start-screen">
-    <h1 id="title">Arth Gajera Portfolio</h1>
+    <h1 id="title">Arth Gajera's Portfolio</h1>
     <p id="desc">Press start to see what I have done</p>
     <button id="startBtn" onclick="showCanvas()">Start</button>
   </div>
 
-  <canvas id="gameCanvas" width="480" height="256"></canvas>
+  <!-- Main Content: Canvas + Instruction Keys -->
+  <div id="main-content">
+    <canvas id="gameCanvas" width="480" height="256"></canvas>
+
+    <div id="instruction-wrapper">
+      <div id="arrow-keys">
+        <div class="arrow-row"><span class="key">w</span></div>
+        <div class="arrow-row">
+          <span class="key">a</span>
+          <span class="key">s</span>
+          <span class="key">d</span>
+        </div>
+        <div class="enter-row"><span class="key">E</span></div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
