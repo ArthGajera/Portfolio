@@ -1,22 +1,82 @@
-html, body {
+* {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background: #000;
-  font-family: 'Press Start 2P', cursive;
+  box-sizing: border-box;
 }
 
-/* Start screen */
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  font-family: 'Press Start 2P', cursive;
+  scroll-behavior: smooth;
+  color: #fff;
+}
+
+
+#top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000;
+  color: #40c322;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  font-size: 10px;
+  border-bottom: 2px solid #40c322;
+  z-index: 1000;
+}
+
+#nav-left {
+  font-weight: bold;
+}
+
+#nav-right {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  color: #40c322;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background-color: #40c322;
+  transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+
+section {
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+  box-sizing: border-box;
+}
+
+
 #start-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  color: white;
+  height: calc(100vh - 80px);
   text-align: center;
+  color: white;
 }
 
 #title {
@@ -47,17 +107,26 @@ html, body {
   transition: transform 0.1s ease;
 }
 
-/* Main game + instructions wrapper */
+
 #main-content {
-  display: none; /* Shown after start */
-  display: flex;
+  display: none;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  gap: 32px;
+  flex-wrap: wrap;
+  gap: 64px;
+  padding: 80px 20px;
+  min-height: 100vh;
 }
 
-/* Canvas styling */
+
+#canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 #gameCanvas {
   display: block;
   width: 960px;
@@ -66,11 +135,23 @@ html, body {
   image-rendering: pixelated;
 }
 
-/* Instruction panel beside canvas */
-#instruction-wrapper {
-  font-family: 'Press Start 2P', cursive;
+
+#instruction-wrapper,
+#interaction-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   color: #40c322;
 }
+
+.section-title {
+  font-size: 10px;
+  color: #ccc;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
 
 #arrow-keys {
   display: flex;
@@ -86,7 +167,7 @@ html, body {
 }
 
 .enter-row {
-  margin-top: 12px;
+  margin-top: 0px;
 }
 
 .key {
@@ -97,5 +178,57 @@ html, body {
   font-size: 10px;
   text-align: center;
   min-width: 32px;
-  box-shadow: 2px 2px 0 #222;
+  font-family: 'Press Start 2P', cursive;
+  line-height: 1;
+  box-shadow:
+    0 0 0 2px #000,
+    2px 2px 0 2px #222,
+    4px 4px 0 2px #000;
+  image-rendering: pixelated;
+  transform: scale(1);  
+  -webkit-font-smoothing: none;
+  border-radius: 0; 
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: justify;
+  padding: 100px 20px 60px; 
+}
+
+#about h2 {
+  font-size: 16px;
+  color: #40c322;
+  margin-bottom: 24px;
+}
+
+#about p {
+  font-size: 12px;
+  color: #ccc;
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
+#projects, #contact {
+  padding-top: 80px;
+}
+
+#projects h2,
+#contact h2 {
+  font-size: 12px;
+  color: #40c322;
+  margin-bottom: 16px;
+  text-align: center;
+  justify-content: center;
+}
+
+#projects p,
+#contact p {
+  font-size: 10px;
+  color: #ccc;
+  max-width: 600px;
 }

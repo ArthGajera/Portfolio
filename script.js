@@ -6,6 +6,9 @@ function showCanvas() {
   document.getElementById("start-screen").style.display = "none";
   canvas.style.display = "block";
   document.getElementById("main-content").style.display = "flex";
+  document.getElementById("main-content").scrollIntoView({ behavior: "smooth" });
+  document.body.style.overflow = "hidden";
+
 
   const ctx = canvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
@@ -45,7 +48,7 @@ function showCanvas() {
       targetY: 10,
       pixelX: 2 * tileSize,
       pixelY: 2 * tileSize,
-      speed: 1
+      speed: 1.5
     };
 
     let dialogVisible = false;
@@ -570,5 +573,14 @@ function gameLoop()
 }
 
 requestAnimationFrame(gameLoop);
+
+document.querySelector('a[href="#home"]').addEventListener("click", function (e) {
+  e.preventDefault(); 
+  document.getElementById("main-content").style.display = "none";
+  document.getElementById("start-screen").style.display = "flex";
+  document.getElementById("home").scrollIntoView({ behavior: "smooth" });
+  document.body.style.overflow = "auto";
+});
+
 }
 

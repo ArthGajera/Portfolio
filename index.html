@@ -7,18 +7,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Start Screen -->
-  <div id="start-screen">
-    <h1 id="title">Arth Gajera's Portfolio</h1>
-    <p id="desc">Press start to see what I have done</p>
-    <button id="startBtn" onclick="showCanvas()">Start</button>
-  </div>
 
-  <!-- Main Content: Canvas + Instruction Keys -->
-  <div id="main-content">
-    <canvas id="gameCanvas" width="480" height="256"></canvas>
+  <!-- Top Nav (Optional) -->
+  <nav id="top-nav">
+    <div id="nav-left">Arth Gajera</div>
+    <div id="nav-right">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About Me</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#contact" class="nav-link">Contact Me</a>
+    </div>
+  </nav>
 
+  <!-- HOME SECTION -->
+  <section id="home">
+    <div id="start-screen">
+      <h1 id="title">Arth Gajera's Portfolio</h1>
+      <p id="desc">Press Start if you are into cool Stuff....</p>
+      <button id="startBtn" onclick="showCanvas()">Start</button>
+    </div>
+  </section>
+
+  <!-- GAME SECTION (Initially Hidden) -->
+  <section id="main-content">
     <div id="instruction-wrapper">
+      <div class="section-title">Movement Keys</div>
       <div id="arrow-keys">
         <div class="arrow-row"><span class="key">w</span></div>
         <div class="arrow-row">
@@ -26,10 +39,39 @@
           <span class="key">s</span>
           <span class="key">d</span>
         </div>
-        <div class="enter-row"><span class="key">E</span></div>
       </div>
     </div>
-  </div>
+
+    <div id="canvas-wrapper">
+      <div class="section-title">Move around my House, and Explore About Me.</div>
+      <canvas id="gameCanvas" width="480" height="256"></canvas>
+    </div>
+
+    <div id="interaction-wrapper">
+      <div class="section-title">Interaction Key</div>
+      <div class="enter-row"><span class="key">E</span></div>
+    </div>
+  </section>
+
+  <!-- OTHER SECTIONS -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>Hi! I'm Arth — a game programmer and designer from India. I recently graduated with a Master's in Computer Science from the University of Colorado Denver.</p>
+
+  <p>Here you'll find some of the personal and fun projects I've been working on. I have a strong perseverance for learning new things, tackling challenges, and constantly refining my work. I enjoy diving deep — whether it's polishing the tiniest detail or experimenting with new ideas.</p>
+
+  <p>I've always been deeply intrigued and enthusiastic about game development and design. I love creating experiences that are not just functional, but playful, immersive... and sometimes too fun to explain here </p>
+</section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <p>List or describe your projects here...</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>Put your contact form or email link here...</p>
+  </section>
 
   <script src="script.js"></script>
 </body>
