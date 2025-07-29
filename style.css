@@ -226,9 +226,148 @@ section {
   justify-content: center;
 }
 
-#projects p,
-#contact p {
+#projects p{
   font-size: 10px;
   color: #ccc;
   max-width: 600px;
+}
+
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+}
+
+.project-card {
+  width: 320px;
+  background: #111;
+  border: 2px solid #40c322;
+  box-shadow:
+    0 0 0 4px #000,
+    4px 4px 0 4px #222,
+    8px 8px 0 4px #000;
+  font-family: 'Press Start 2P', cursive;
+  color: #ccc;
+  padding-bottom: 16px;
+}
+
+.project-image {
+  position: relative;
+  background: #000;
+  border-bottom: 2px solid #40c322;
+}
+
+.project-image img {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.project-title {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 12px;
+  font-size: 10px;
+  text-align: center;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.project-tags {
+  padding: 10px 12px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 8px;
+  padding: 4px 8px;
+  background-color: #40c322;
+  color: #000;
+  margin-right: 8px;
+  text-transform: uppercase;
+}
+
+.tag.MLagents {
+  background-color: #a278ff;
+}
+
+.tag.unity {
+  background-color: aquamarine;
+}
+
+.tag.torch{
+  background-color: coral;
+}
+
+.project-desc {
+  font-size: 8px;
+  padding: 0 12px 12px;
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.project-highlights {
+  list-style: none;
+  font-size: 8px;
+  padding: 0 12px;
+  color: #fff;
+  line-height: 1.6;
+}
+
+.project-highlights li::before {
+  content: "✔ ";
+  color: #40c322;
+  margin-right: 4px;
+}
+
+#contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 20px 60px;
+  text-align: center;
+  background-color: #000;
+}
+
+#contact h2 {
+  font-size: 16px;
+  color: #40c322;
+  margin-bottom: 20px;
+}
+
+.contact-text {
+  font-size: 10px;
+  color: #ccc;
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.email-link {
+  color: #40c322;
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  font-size: 24px;
+  text-decoration: none;
+  color: #40c322;
+  transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  color: #fff;
 }
