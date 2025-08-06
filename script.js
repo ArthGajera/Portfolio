@@ -64,7 +64,7 @@ function showCanvas() {
 
     let contactBoxVisible = false;
     let contactText = `Lets Get In Touch!\n      
-    Email: arthgajera0007@gmail.com\n
+    Email: arthgajera007@gmail.com\n
     Phone: +1 (720) 253-5869\n
     LinkedIn: linkedin.com/in/arth-gajera\n
     GitHub: github.com/ArthGajera\n
