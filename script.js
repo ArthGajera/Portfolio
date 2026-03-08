@@ -73,10 +73,59 @@ function showCanvas() {
 
     let projectMenuVisible = false;
     let selectedProjectIndex = 0;
-    const projectList = [
-      { name: "Ray Tracer", description: " A real-time ray tracer built from scratch in c++ and OpenGL."},
-      { name: "MTD-SDN", description: "A Moving Target Defence System using SOftware define Networking and Ryu controller."},
-      { name: "RL Pathfinding", description: "Unity project using Reinforcment Learning to solve navigation puzzel."}
+    let projectPopupVisible = false;
+   const projectList = [
+    {
+      name: "Ray Tracer",
+      github: "https://github.com/ArthGajera/raytracer",
+      summary: "A physically based ray tracer built completely from scratch in C++.",
+
+      Features:[
+      "Diffuse and specular materials",
+      "Anti-aliasing",
+      "Depth of field",
+      "Recursive reflections",
+      "Realistic lighting simulation"
+      ],
+      tech : "C++,Opengl,Rendering,Linear Algebra"
+      
+    },
+
+    {
+      name: "Ray Tracer",
+      github: "https://github.com/ArthGajera/raytracer",
+      summary: "A physically based ray tracer built completely from scratch in C++.",
+
+      Features:[
+      "Diffuse and specular materials",
+      "Anti-aliasing",
+      "Depth of field",
+      "Recursive reflections",
+      "Realistic lighting simulation"
+      ],
+      tech : "C++,Opengl,Rendering,Linear Algebra"
+    },
+
+    {
+      name: "Ray Tracer",
+      github: "https://github.com/ArthGajera/raytracer",
+      summary: "A physically based ray tracer built completely from scratch in C++.",
+
+      Features:[
+      "Diffuse and specular materials",
+      "Anti-aliasing",
+      "Depth of field",
+      "Recursive reflections",
+      "Realistic lighting simulation"
+      ],
+      tech : "C++,Opengl,Rendering,Linear Algebra"
+    },
+    {
+      name: "Exit",
+      exit: true
+
+    }
+
     ];
 
     const standingFrames = {
@@ -205,6 +254,31 @@ function showCanvas() {
             break;
       }
     }
+  }
+
+  function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+
+    const words = text.split(" ");
+    let line = "";
+
+    for (let i = 0; i < words.length; i++) {
+
+      const testLine = line + words[i] + " ";
+      const width = ctx.measureText(testLine).width;
+
+      if (width > maxWidth && i > 0) {
+        ctx.fillText(line, x, y);
+        line = words[i] + " ";
+        y += lineHeight;
+      } else {
+        line = testLine;
+      }
+
+    }
+
+    ctx.fillText(line, x, y);
+
+    return y + lineHeight; // return next line position
   }
 
 
@@ -404,6 +478,8 @@ function showCanvas() {
     }
 
     if(projectMenuVisible) {
+
+      // menu Right 
       const menuX = canvas.width - 160 ;
       const menuY = 40;
       const menuWidth = 120;
@@ -422,43 +498,88 @@ function showCanvas() {
         const y = menuY + 10 +i * 14;
         const name = projectList[i].name;
         if( i === selectedProjectIndex) {
-          ctx.fillRect(menuX + 5,y-2,menuWidth-10,12);
+          ctx.fillRect(Math.floor(menuX + 5),Math.floor(y-2),Math.floor(menuWidth-10),12);
           ctx.fillStyle = "#fff";
-          ctx.fillText(name,menuX+10,y);
+          ctx.fillText(name,Math.floor(menuX+10),Math.floor(y));
           ctx.fillStyle = "#306850";
         } else {
           ctx.fillText(name,menuX + 10, y);
         }
       }
 
-      const descBoxX = 20;
-      const descBoxY = 40;
-      const descBoxWidth = canvas.width - 200;
-      const descBoxHeight = 100;
+
+    }
+
+    // PROJECT DETAIL POPUP
+    if(projectPopupVisible) {
+
+      const boxWidth = canvas.width - 60;
+      const boxHeight = canvas.height - 60;
+
+      const boxX = Math.floor((canvas.width - boxWidth) / 2);
+      const boxY = Math.floor((canvas.height - boxHeight) / 2);
 
       ctx.fillStyle = "#fff";
-      ctx.fillRect(descBoxX, descBoxY, descBoxWidth, descBoxHeight);
-      ctx.strokeStyle = "#306850";
-      ctx.strokeRect(descBoxX, descBoxY, descBoxWidth, descBoxHeight);
+      ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
 
+      ctx.strokeStyle = "#306850";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(boxX, boxY, boxWidth, boxHeight);
+
+      const project = projectList[selectedProjectIndex];
+
+      let y = boxY + 30;
+
+      // TITLE
       ctx.fillStyle = "#306850";
+      ctx.font = "10px 'Press Start 2P', monospace";
+      ctx.fillText(project.name, boxX + 20, y);
+
+      y += 30;
+
       ctx.font = "8px 'Press Start 2P', monospace";
 
-      const description = projectList[selectedProjectIndex].description;
-      const words = description.split(" ");
-      let line = "", y = descBoxY + 10;
+      // SUMMARY
+      if(project.summary){
+        ctx.fillText("Summary:", boxX + 20, y);
+        y += 16;
 
-      for (let i = 0; i < words.length; i++) {
-        const testLine = line + words[i] + " ";
-        if (ctx.measureText(testLine).width > descBoxWidth - 20) {
-          ctx.fillText(line, descBoxX + 10, y);
-          line = words[i] + " ";
-          y += 14;
-        } else {
-          line = testLine;
-        }
+        y = drawWrappedText(
+          ctx,
+          project.summary,
+          boxX + 20,
+          y,
+          boxWidth - 40,
+          14
+        );
+
+        y += 10;
       }
-      ctx.fillText(line, descBoxX + 10, y);
+
+      // FEATURES
+      if(project.features){
+        ctx.fillText("Features:", boxX + 20, y);
+        y += 16;
+
+        for(let feature of project.features){
+          ctx.fillText("• " + feature, boxX + 20, y);
+          y += 14;
+        }
+
+        y += 10;
+      }
+
+      // TECH STACK
+      if(project.tech){
+        ctx.fillText("Tech:", boxX + 20, y);
+        y += 16;
+
+        ctx.fillText(project.tech, boxX + 20, y);
+      }
+
+      // FOOTER CONTROLS
+      ctx.fillText("G : Open GitHub", boxX + 20, boxY + boxHeight - 30);
+      ctx.fillText("E : Back", boxX + boxWidth - 100, boxY + boxHeight - 30);
     }
 
   }
@@ -481,15 +602,48 @@ function showCanvas() {
     return;
   }
 
+  if(projectPopupVisible) {
+
+      if(event.key === "e") {
+        projectPopupVisible = false;
+      }
+
+      if(event.key === "g") {
+        const project = projectList[selectedProjectIndex];
+        window.open(project.github, "_blank");
+      }
+
+      return;
+  }
+
+
   if(projectMenuVisible) {
-    if(event.key === "w"){
-      selectedProjectIndex = (selectedProjectIndex - 1 + projectList.length) % projectList.length;
-    } else if(event.key === "s") {
-      selectedProjectIndex = (selectedProjectIndex + 1) % projectList.length;
-    } else if(event.key === "e") {
-      projectMenuVisible = false;
-    }
-    return;
+
+      if(event.key === "w"){
+        selectedProjectIndex =
+        (selectedProjectIndex - 1 + projectList.length) % projectList.length;
+
+      } else if(event.key === "s") {
+
+        selectedProjectIndex =
+        (selectedProjectIndex + 1) % projectList.length;
+
+      } else if(event.key === "e") {
+
+        const selected = projectList[selectedProjectIndex];
+
+        //exit the computer 
+        if(selected.exit)
+        {
+          projectMenuVisible = false;
+          return;
+        }
+
+        projectPopupVisible = true;
+
+      }
+
+      return;
   }
 
 
