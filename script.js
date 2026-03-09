@@ -738,3 +738,42 @@ document.querySelector('a[href="#home"]').addEventListener("click", function (e)
 
 }
 
+
+/* project modal */ 
+
+const modal = document.getElementById("projectModal");
+const modalTitle = document.getElementById("modal-title");
+const modalImage = document.getElementById("modal-image");
+const modalDescription = document.getElementById("modal-description");
+const modalTech = document.getElementById("modal-tech");
+const modalGithub = document.getElementById("modal-github");
+
+const closeBtn = document.querySelector(".close-btn");
+
+document.querySelectorAll(".project-card").forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    modalTitle.innerText = card.dataset.title;
+    modalImage.src = card.dataset.image;
+    modalDescription.innerText = card.dataset.desc;
+    modalTech.innerText = "Tech: " + card.dataset.tech;
+    modalGithub.href = card.dataset.github;
+
+    modal.style.display = "block";
+
+  });
+
+});
+
+closeBtn.onclick = () => {
+  modal.style.display = "none";
+};
+
+window.onclick = (event) => {
+  if(event.target == modal){
+    modal.style.display = "none";
+  }
+};
+
+

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Arth Gajera</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Arth Gajera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
 
   <!-- Top Nav (Optional) -->
   <nav id="top-nav">
@@ -67,7 +67,12 @@
     <h2>Projects</h2>
     <div class="project-grid">
       
-      <div class="project-card">
+      <div class="project-card"
+      data-title="RL-based Puzzle Solver"
+      data-image="RL-agent.png"
+      data-desc="A reinforcement learning agent trained using Unity ML-Agents to locate a target ball"
+      data-tech="Unity, ML-Agents, PyTorch, C#"
+      data-github="https://github.com/ArthGajera/RL-puzzel-solving">
         <div class="project-image">
           <img src="RL-agent.png" alt="RL Puzzle Solver">
           <div class="project-title">RL-based Puzzle Solver<br>Using ML-Agents</div>
@@ -169,6 +174,26 @@
         <a href="https://linkedin.com/in/arth-gajera" target="_blank" class="social-icon"><img src="Linkedin.svg"></a>
       </div>
   </section>
+
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+
+        <span class="close-btn">&times;</span>
+
+        <h2 id="modal-title"></h2>
+
+        <img id="modal-image" src="" alt="project image">
+
+        <p id="modal-description"></p>
+
+        <div id="modal-tech"></div>
+
+        <a id="modal-github" href="#" target="_blank" class="modal-link">
+          View on GitHub
+        </a>
+
+      </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
